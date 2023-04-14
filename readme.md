@@ -21,6 +21,7 @@ $ purge
 |if [ URL = PURGE'd ]; then [smash]
 |else [pass] fi
 ```
+---
 
 ```bash
 $ cat subdomains.txt | purge
@@ -28,7 +29,9 @@ $ cat subdomains.txt | purge
 $ purge subdomains.txt
 ```
 
-![PURGE](https://imgur.com/muVx1Mi.gif)
+<p align="center">
+<img src="https://imgur.com/zPULziG.fig" alt="PURGE.GIF"/>
+</p>
 
 ##  Installation
 
