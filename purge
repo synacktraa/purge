@@ -9,6 +9,9 @@ help_text () {
     while read -r line; do
         echo -e "$line"
     done <<-EOF
+	|Options:
+	|  -U   update this script
+	|
     |Usage:
     |  purge subdomain.txt
     |  cat subdomain.txt | purge
@@ -19,12 +22,41 @@ help_text () {
 EOF
 }
 
+die() {
+    printf "\33[2K\r\033[1;31m%s\033[0m\n" "$*" >&2
+    exit 1
+}
+
+update_script() {
+    update="$(curl -s -A "$agent" "https://raw.githubusercontent.com/synacktraa/purge/master/purge")" || die "Connection error"
+    update="$(printf '%s\n' "$update" | diff -u "$0" -)"
+    if [ -z "$update" ]; then
+        printf "Script is up to date :)\n"
+    else
+        if printf '%s\n' "$update" | patch "$0" -; then
+            printf "Script has been updated\n"
+        else
+            die "Can't update for some reason!"
+        fi
+    fi
+    exit 0
+}
+
+dep_chk() {
+    for dep; do
+        command -v "$dep" >/dev/null || die "Program \"$dep\" not found. Please install it."
+    done
+}
+
+dep_chk "curl" "jq"
 
 if [ -p  /dev/stdin ]; then
 	:
 elif [ -z "$*" ]; then
 	help_text
 	exit 0
+elif [ $# -eq 1 ] && [ "$1" = "-U" ]; then
+	update_script
 fi
 
 outfile="/tmp/purgedAt_$(date +"%Y-%m-%d_%H-%M-%S").urls"

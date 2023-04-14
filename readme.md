@@ -8,11 +8,15 @@ A script that nobody asked for! Introducing an incredible tool for uncovering ca
 
 ##  Usage
 
+
 ```bash
 $ purge
 ```
 
 ```
+|Options:
+|  -U   update this script
+|
 |Usage:
 |  purge subdomain.txt
 |  cat subdomain.txt | purge
