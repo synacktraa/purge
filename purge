@@ -27,11 +27,11 @@ elif [ -z "$*" ]; then
 	exit 0
 fi
 
+outfile="/tmp/purgedAt_$(date +"%Y-%m-%d_%H-%M-%S").urls"
 while IFS= read -r domain; do
 	
-	status=$(curl --connect-timeout 3 -sX PURGE $domain | jq '.status' 2> /dev/null)
+	status=$(curl --connect-timeout 3 -sX PURGE "$domain" | jq '.status' 2> /dev/null)
 	if [ "$status" = "\"ok\"" ]; then
-		outfile="/tmp/purgedAt_$(date +"%Y-%m-%d_%H-%M-%S").urls"
 		echo $domain >> $outfile
 		printf "$success (%s)\n" "$domain"
 	else
@@ -39,3 +39,5 @@ while IFS= read -r domain; do
 	fi
 
 done < "${1:-/dev/stdin}"
+
+echo -e "\nPURGE'd URLs saved at $outfile"
