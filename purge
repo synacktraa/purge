@@ -1,0 +1,41 @@
+#!/bin/bash
+
+
+success="[\033[1;32msmash\033[0m]"
+fail="[\033[1;31mpass\033[0m]"
+
+help_text () {
+
+    while read -r line; do
+        echo -e "$line"
+    done <<-EOF
+    |Usage:
+    |  purge subdomain.txt
+    |  cat subdomain.txt | purge
+    |  subfinder -d domain.TLD | purge
+    |
+    |if [ URL = PURGE'd ]; then $success
+    |else $fail fi
+EOF
+}
+
+
+if [ -p  /dev/stdin ]; then
+	:
+elif [ -z "$*" ]; then
+	help_text
+	exit 0
+fi
+
+while IFS= read -r domain; do
+	
+	status=$(curl --connect-timeout 3 -sX PURGE $domain | jq '.status' 2> /dev/null)
+	if [ "$status" = "\"ok\"" ]; then
+		outfile="/tmp/purgedAt_$(date +"%Y-%m-%d_%H-%M-%S").urls"
+		echo $domain >> $outfile
+		printf "$success (%s)\n" "$domain"
+	else
+		printf "$fail (%s)\n" "$domain"
+	fi
+
+done < "${1:-/dev/stdin}"
