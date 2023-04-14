@@ -28,7 +28,7 @@ $ cat subdomains.txt | purge
 $ purge subdomains.txt
 ```
 
-[PURGE](https://imgur.com/muVx1Mi)
+[PURGE](https://imgur.com/muVx1Mi.gif)
 
 ##  Installation
 
