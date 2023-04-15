@@ -34,7 +34,7 @@ $ purge subdomains.txt
 ```
 
 <p align="center">
-<img src="https://imgur.com/zPULziG.gif" alt="PURGE.GIF"/>
+<img src="https://imgur.com/YQoVycu.gif" alt="PURGE.GIF"/>
 </p>
 
 ##  Installation

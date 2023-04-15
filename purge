@@ -4,6 +4,27 @@
 success="[\033[1;32msmash\033[0m]"
 fail="[\033[1;31mpass\033[0m]"
 
+banner() {
+
+    while read -r line; do
+        echo -e "$line"
+    done <<- EOF
+    
+    \033[0;31m ██████                  █████
+    ░██░░░██ ██   ██ ██████ ██░░░██  █████
+    ░██  ░██░██  ░██░░██░░█░██  ░██ ██░░░██
+    ░██████ ░██  ░██ ░██ ░ ░░██████░███████
+    ░██░░░  ░██  ░██ ░██    ░░░░░██░██░░░░
+    ░██     ░░██████░███     █████ ░░██████
+    ░░       ░░░░░░ ░░░     ░░░░░   ░░░░░░\033[0m
+    
+
+    -[[\033[3mMade by \033[1;36mSynAcktra \033[37m&\033[0m \033[1;36mBiswajeetRay7\033[0m\033[0m]]-
+
+
+EOF
+}
+
 help_text () {
 
     while read -r line; do
@@ -48,7 +69,7 @@ dep_chk() {
     done
 }
 
-dep_chk "curl" "jq"
+banner
 
 if [ -p  /dev/stdin ]; then
 	:
@@ -58,6 +79,8 @@ elif [ -z "$*" ]; then
 elif [ $# -eq 1 ] && [ "$1" = "-U" ]; then
 	update_script
 fi
+
+dep_chk "curl" "jq"
 
 outfile="/tmp/purgedAt_$(date +"%Y-%m-%d_%H-%M-%S").urls"
 while IFS= read -r domain; do
