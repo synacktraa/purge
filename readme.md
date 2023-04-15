@@ -9,6 +9,7 @@ A script that nobody asked for! Introducing an incredible tool for uncovering ca
 ##  Usage
 
 
+
 ```bash
 $ purge
 ```
@@ -34,7 +35,7 @@ $ purge subdomains.txt
 ```
 
 <p align="center">
-<img src="https://imgur.com/YQoVycu.gif" alt="PURGE.GIF"/>
+<img src="https://imgur.com/yFZuLpK.gif" alt="PURGE.GIF"/>
 </p>
 
 ##  Installation
