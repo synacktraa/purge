@@ -86,7 +86,7 @@ outfile="/tmp/purgedAt_$(date +"%Y-%m-%d_%H-%M-%S").urls"
 while IFS= read -r domain; do
 	
 	status=$(curl --connect-timeout 3 -sX PURGE "$domain" | jq '.status' 2> /dev/null)
-	if [ "$status" = "\"ok\"" ]; then
+	if [ "$status" = '"ok"' ]; then
 		echo $domain >> $outfile
 		printf "$success (%s)\n" "$domain"
 	else
